@@ -1,0 +1,28 @@
+server:
+  port: 8282
+spring:
+  application:
+    name: ms-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: service-customer
+          uri: lb://MS-CUSTOMER
+          predicates:
+            - Path=/ms-customer/**
+          filters:
+            - RewritePath=/ms-customer/(?<remaining>.*), /$\{remaining}
+        - id: service-account
+          uri: lb://MS-ACCOUNT
+          predicates:
+            - Path=/ms-account/**
+          filters:
+            - RewritePath=/ms-account/(?<remaining>.*), /$\{remaining}
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    serviceUrl:
+      defaultZone: http://localhost:9761/eureka
+  instance:
+    hostname: localhost

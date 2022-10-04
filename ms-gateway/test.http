@@ -1,0 +1,16 @@
+#####
+GET http://localhost:9871/v1/api/account/test
+
+#####
+GET http://localhost:9872/v1/api/account/test
+
+####
+GET http://localhost:8930/v1/api/customer/test
+
+
+###
+GET http://localhost:8282/ms-customer/v1/api/customer/test
+
+
+###
+GET http://localhost:8282/ms-account/v1/api/account/test
