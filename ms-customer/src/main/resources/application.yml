@@ -3,11 +3,18 @@ spring:
     name: ms-customer
 
 server:
-  port: 8930
+  port: ${SERVER_PORT:8930}
 
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://localhost:8761/eureka
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
   instance:
-    hostname: localhost
+    hostname: ${HOSTNAME:localhost}
+
+#bootstrap.properties
+
+#bootstrap.properties
+#application.yml
+
+
