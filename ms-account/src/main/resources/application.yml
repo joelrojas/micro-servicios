@@ -3,11 +3,42 @@ spring:
     name: ms-account
 
 server:
-  port: 9872
+  port: ${SERVER_PORT:9871}
 
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://localhost:8761/eureka
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
+    enabled: false
   instance:
-    hostname: localhost
+    hostname: ${HOSTNAME:localhost}
+
+keycloak:
+  realm: google
+  auth-server-url: http://localhost:8180/auth
+  resource: youtube
+  credentials:
+    secret: 857pYhP4aVBM0mklvyjC3X13O7nYlSrt
+  autodetect-bearer-only: true
+  security-constraints:
+    - auth-roles:
+        - ADMIN
+      security-collections:
+        - name: ENDPOINT PARA EL ADMINISTRADOR
+          omitted-methods:
+            - OPTIONS
+          patterns:
+            - /v1/api/account/test-admin
+    - auth-roles:
+        - CAJERO
+      security-collections:
+        - name: ENDPOINT PARA EL CAJERO
+          omitted-methods:
+            - OPTIONS
+          patterns:
+            - /v1/api/account/test-cajero
+    - security-collections:
+        - patterns:
+            - /v1/api/account/test
+  ssl-required: external
+  use-resource-role-mappings: false
